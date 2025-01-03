@@ -1,0 +1,7 @@
+theme =  "catppuccin_frappe"
+
+[editor]
+auto-pairs = false
+
+[editor.cursor-shape]
+insert = "bar"

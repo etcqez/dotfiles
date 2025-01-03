@@ -72,6 +72,6 @@ eval "$(zoxide init --cmd cd zsh)"
 source ~/myconfig/zshrc
 #
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
-eval "$(oh-my-posh init zsh --config /home/f/.config/ohmyposh/zen.toml)"
+eval "$(oh-my-posh init zsh --config ~/.config/ohmyposh/zen.toml)"
 # typeset -g POWERLEVEL9K_INSTANT_PROMPT=quiet
 
