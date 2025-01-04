@@ -75,3 +75,4 @@ source ~/myconfig/zshrc
 eval "$(oh-my-posh init zsh --config ~/.config/ohmyposh/zen.toml)"
 # typeset -g POWERLEVEL9K_INSTANT_PROMPT=quiet
 
+export PATH="/usr/local/opt/openjdk@17/bin:$PATH"
