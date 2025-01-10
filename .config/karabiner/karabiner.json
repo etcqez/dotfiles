@@ -3730,13 +3730,7 @@
                                     }
                                 },
                                 "to": [
-                                    { "key_code": "page_down" },
-                                    {
-                                        "set_variable": {
-                                            "name": "C-spacebar",
-                                            "value": 0
-                                        }
-                                    }
+                                    { "key_code": "page_down" }
                                 ],
                                 "type": "basic"
                             },
