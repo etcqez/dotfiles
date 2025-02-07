@@ -23,6 +23,8 @@ zinit light zsh-users/zsh-syntax-highlighting
 zinit light zsh-users/zsh-completions
 zinit light zsh-users/zsh-autosuggestions
 zinit light Aloxaf/fzf-tab
+# 安装 rupa/z
+zinit light rupa/z
 
 # Add in snippets
 # zinit snippet OMZL::git.zsh
@@ -69,10 +71,15 @@ zstyle ':fzf-tab:complete:__zoxide_z:*' fzf-preview 'ls --color $realpath'
 # Shell integrations
 eval "$(fzf --zsh)"
 eval "$(zoxide init --cmd cd zsh)"
-source ~/myconfig/zshrc
 #
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 eval "$(oh-my-posh init zsh --config ~/.config/ohmyposh/zen.toml)"
 # typeset -g POWERLEVEL9K_INSTANT_PROMPT=quiet
 
+bindkey "^T" transpose-chars
+source ~/myconfig/zshrc
+
+
+
 export PATH="/usr/local/opt/openjdk@17/bin:$PATH"
+export PATH="/usr/local/opt/tomcat@10/bin:$PATH"

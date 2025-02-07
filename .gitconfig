@@ -3,3 +3,4 @@
 	email = etcqez@outlook.com
 [core]
 	excludesFile = ~/.gitignore
+	autocrlf = input
