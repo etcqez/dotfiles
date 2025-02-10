@@ -4,3 +4,9 @@
 [core]
 	excludesFile = ~/.gitignore
 	autocrlf = input
+	compression = 0
+[http]
+	version = HTTP/1.1
+	postBuffer = 524288000
+[clone]
+	defaultShallowDepth = 1

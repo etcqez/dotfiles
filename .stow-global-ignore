@@ -11,6 +11,7 @@ _darcs
 
 \.git
 \.gitmodules
+\.stow-global-ignore
 
 .+~          # emacs backup files
 \#.*\#       # emacs autosave files
