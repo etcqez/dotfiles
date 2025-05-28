@@ -1,0 +1,4 @@
+search_shortcut: DISABLED
+show_icon: false            # Disable the status icon
+show_notifications: false   # Disable the notifications
+
