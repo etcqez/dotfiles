@@ -1,3 +1,4 @@
+source ~/myconfig/zshrc
 # tmux
 # alias tmux=TERM='xterm-256color tmux'
 # export TERM=xterm-256color
@@ -16,7 +17,12 @@ fi
 # Source/Load zinit
 source "${ZINIT_HOME}/zinit.zsh"
 
-unalias zi
+# unalias zi
+
+ZINIT[DISABLE_AUTO_UPDATE]=1
+# 完全禁用 zinit 的更新功能
+zinit ice wait"0" lucid nocd
+zinit light zdharma-continuum/zinit
 
 # Add in zsh plugins
 zinit light zsh-users/zsh-syntax-highlighting
@@ -77,9 +83,13 @@ eval "$(oh-my-posh init zsh --config ~/.config/ohmyposh/zen.toml)"
 # typeset -g POWERLEVEL9K_INSTANT_PROMPT=quiet
 
 bindkey "^T" transpose-chars
-source ~/myconfig/zshrc
 
 
-
-export PATH="/usr/local/opt/openjdk@17/bin:$PATH"
-export PATH="/usr/local/opt/tomcat@10/bin:$PATH"
+___MY_VMOPTIONS_SHELL_FILE="${HOME}/.jetbrains.vmoptions.sh"; if [ -f "${___MY_VMOPTIONS_SHELL_FILE}" ]; then . "${___MY_VMOPTIONS_SHELL_FILE}"; fi
+___MY_VMOPTIONS_SHELL_FILE="${HOME}/.jetbrains.vmoptions.sh"; if [ -f "${___MY_VMOPTIONS_SHELL_FILE}" ]; then . "${___MY_VMOPTIONS_SHELL_FILE}"; fi
+___MY_VMOPTIONS_SHELL_FILE="${HOME}/.jetbrains.vmoptions.sh"; if [ -f "${___MY_VMOPTIONS_SHELL_FILE}" ]; then . "${___MY_VMOPTIONS_SHELL_FILE}"; fi
+___MY_VMOPTIONS_SHELL_FILE="${HOME}/.jetbrains.vmoptions.sh"; if [ -f "${___MY_VMOPTIONS_SHELL_FILE}" ]; then . "${___MY_VMOPTIONS_SHELL_FILE}"; fi
+___MY_VMOPTIONS_SHELL_FILE="${HOME}/.jetbrains.vmoptions.sh"; if [ -f "${___MY_VMOPTIONS_SHELL_FILE}" ]; then . "${___MY_VMOPTIONS_SHELL_FILE}"; fi
+___MY_VMOPTIONS_SHELL_FILE="${HOME}/.jetbrains.vmoptions.sh"; if [ -f "${___MY_VMOPTIONS_SHELL_FILE}" ]; then . "${___MY_VMOPTIONS_SHELL_FILE}"; fi
+___MY_VMOPTIONS_SHELL_FILE="${HOME}/.jetbrains.vmoptions.sh"; if [ -f "${___MY_VMOPTIONS_SHELL_FILE}" ]; then . "${___MY_VMOPTIONS_SHELL_FILE}"; fi
+___MY_VMOPTIONS_SHELL_FILE="${HOME}/.jetbrains.vmoptions.sh"; if [ -f "${___MY_VMOPTIONS_SHELL_FILE}" ]; then . "${___MY_VMOPTIONS_SHELL_FILE}"; fi

@@ -1,7 +1,7 @@
 vim.cmd("set ttimeout")
 vim.cmd("set ttimeoutlen=100")
 vim.cmd("set display=truncate")
-vim.cmd("set clipboard=unnamedplus")
+-- vim.cmd("set clipboard=unnamedplus")
 vim.cmd("set number")
 vim.cmd("set ruler") vim.cmd("set linebreak")
 vim.cmd("set showcmd")

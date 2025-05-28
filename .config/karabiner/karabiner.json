@@ -2,8 +2,7 @@
     "global": {
         "ask_for_confirmation_before_quitting": false,
         "check_for_updates_on_startup": false,
-        "enable_notification_window": false,
-        "show_in_menu_bar": false
+        "enable_notification_window": false
     },
     "profiles": [
         {
@@ -11,138 +10,28 @@
                 "parameters": { "mouse_motion_to_scroll.speed": 300 },
                 "rules": [
                     {
-                        "description": "Change hyper-(jikl) to (←↑↓→) keys",
-                        "enabled": false,
-                        "manipulators": [
-                            {
-                                "from": {
-                                    "key_code": "j",
-                                    "modifiers": {
-                                        "mandatory": ["left_command", "left_option", "left_control", "left_shift"],
-                                        "optional": ["any"]
-                                    }
-                                },
-                                "to": [{ "key_code": "left_arrow" }],
-                                "type": "basic"
-                            },
-                            {
-                                "from": {
-                                    "key_code": "i",
-                                    "modifiers": {
-                                        "mandatory": ["left_command", "left_option", "left_control", "left_shift"],
-                                        "optional": ["any"]
-                                    }
-                                },
-                                "to": [{ "key_code": "up_arrow" }],
-                                "type": "basic"
-                            },
-                            {
-                                "from": {
-                                    "key_code": "k",
-                                    "modifiers": {
-                                        "mandatory": ["left_command", "left_option", "left_control", "left_shift"],
-                                        "optional": ["any"]
-                                    }
-                                },
-                                "to": [{ "key_code": "down_arrow" }],
-                                "type": "basic"
-                            },
-                            {
-                                "from": {
-                                    "key_code": "l",
-                                    "modifiers": {
-                                        "mandatory": ["left_command", "left_option", "left_control", "left_shift"],
-                                        "optional": ["any"]
-                                    }
-                                },
-                                "to": [{ "key_code": "right_arrow" }],
-                                "type": "basic"
-                            }
-                        ]
-                    },
-                    {
-                        "description": "Swap \"command + tab\" with \"control + tab\" for easier use inside applications. For example: switching between tabs in your browser, which now matches the other tab related shortcuts.",
-                        "enabled": false,
-                        "manipulators": [
-                            {
-                                "conditions": [
-                                    {
-                                        "identifiers": [
-                                            {
-                                                "is_keyboard": true,
-                                                "vendor_id": 1452
-                                            }
-                                        ],
-                                        "type": "device_if"
-                                    }
-                                ],
-                                "from": {
-                                    "key_code": "tab",
-                                    "modifiers": { "mandatory": ["command"] }
-                                },
-                                "to": [
-                                    {
-                                        "key_code": "tab",
-                                        "modifiers": ["control"]
-                                    }
-                                ],
-                                "type": "basic"
-                            },
-                            {
-                                "conditions": [
-                                    {
-                                        "identifiers": [
-                                            {
-                                                "is_keyboard": true,
-                                                "vendor_id": 1452
-                                            }
-                                        ],
-                                        "type": "device_if"
-                                    }
-                                ],
-                                "from": {
-                                    "key_code": "tab",
-                                    "modifiers": { "mandatory": ["control"] }
-                                },
-                                "to": [
-                                    {
-                                        "key_code": "tab",
-                                        "modifiers": ["command"]
-                                    }
-                                ],
-                                "type": "basic"
-                            }
-                        ]
-                    },
-                    {
-                        "description": "Change caps_lock key to command+control+option+shift if pressed with other keys",
+                        "description": "Hyper",
                         "manipulators": [
                             {
                                 "from": {
                                     "key_code": "left_control",
                                     "modifiers": { "optional": ["any"] }
                                 },
+                                "parameters": { "basic.to_if_alone_timeout_milliseconds": 200 },
                                 "to": [
                                     {
                                         "key_code": "left_shift",
+                                        "lazy": true,
                                         "modifiers": ["left_command", "left_control", "left_option"]
                                     }
                                 ],
-                                "to_if_alone": [
-                                    {
-                                        "hold_down_milliseconds": 100,
-                                        "key_code": "caps_lock"
-                                    }
-                                ],
+                                "to_if_alone": [{ "key_code": "caps_lock" }],
                                 "type": "basic"
                             },
                             {
                                 "from": {
                                     "key_code": "tab",
-                                    "modifiers": {
-                                        "mandatory": ["left_command", "left_option", "left_control", "left_shift"],
-                                        "optional": ["any"]
-                                    }
+                                    "modifiers": { "mandatory": ["left_command", "left_option", "left_control", "left_shift"] }
                                 },
                                 "to": [
                                     {
@@ -151,33 +40,218 @@
                                     }
                                 ],
                                 "type": "basic"
-                            }
-                        ]
-                    },
-                    {
-                        "description": "Caps Lock to Esc and Ctrl",
-                        "manipulators": [
+                            },
                             {
                                 "from": {
-                                    "key_code": "caps_lock",
-                                    "modifiers": { "optional": ["any"] }
+                                    "key_code": "3",
+                                    "modifiers": { "mandatory": ["control", "option", "shift", "command"] }
                                 },
-                                "to": [{ "key_code": "right_control" }],
-                                "to_if_alone": [{ "key_code": "escape" }],
+                                "to": [{ "shell_command": "open -a 'SenPlayer'" }],
+                                "type": "basic"
+                            },
+                            {
+                                "from": {
+                                    "key_code": "2",
+                                    "modifiers": { "mandatory": ["control", "option", "shift", "command"] }
+                                },
+                                "to": [{ "shell_command": "open -a 'iTerm'" }],
+                                "type": "basic"
+                            },
+                            {
+                                "from": {
+                                    "key_code": "1",
+                                    "modifiers": { "mandatory": ["control", "option", "shift", "command"] }
+                                },
+                                "to": [{ "shell_command": "open -a 'Brave Browser'" }],
+                                "type": "basic"
+                            },
+                            {
+                                "from": {
+                                    "key_code": "5",
+                                    "modifiers": { "mandatory": ["control", "option", "shift", "command"] }
+                                },
+                                "to": [{ "shell_command": "open -a 'IntelliJ IDEA'" }],
+                                "type": "basic"
+                            },
+                            {
+                                "from": {
+                                    "key_code": "grave_accent_and_tilde",
+                                    "modifiers": { "mandatory": ["control", "option", "shift", "command"] }
+                                },
+                                "to": [{ "shell_command": "open -a 'Karabiner-Elements'" }],
                                 "type": "basic"
                             }
                         ]
                     },
                     {
-                        "description": "Change spacebar to left_shift. (Post spacebar if pressed alone)",
+                        "description": "grave_accent_and_tilde",
+                        "manipulators": [
+                            {
+                                "from": {
+                                    "key_code": "grave_accent_and_tilde",
+                                    "modifiers": { "optional": ["any"] }
+                                },
+                                "parameters": {
+                                    "basic.to_if_alone_timeout_milliseconds": 200,
+                                    "basic.to_if_held_down_threshold_milliseconds": 200
+                                },
+                                "to_if_alone": [{ "key_code": "grave_accent_and_tilde" }],
+                                "to_if_held_down": [{ "apple_vendor_keyboard_key_code": "launchpad" }],
+                                "type": "basic"
+                            }
+                        ]
+                    },
+                    {
+                        "description": "left_option",
+                        "manipulators": [
+                            {
+                                "from": {
+                                    "key_code": "left_option",
+                                    "modifiers": { "optional": ["any"] }
+                                },
+                                "to": [
+                                    {
+                                        "key_code": "left_option",
+                                        "modifiers": []
+                                    }
+                                ],
+                                "type": "basic"
+                            }
+                        ]
+                    },
+                    {
+                        "description": "输入法",
+                        "manipulators": [
+                            {
+                                "from": {
+                                    "key_code": "0",
+                                    "modifiers": {
+                                        "mandatory": ["left_command", "left_option", "left_control", "left_shift"],
+                                        "optional": ["shift"]
+                                    }
+                                },
+                                "to": [{ "select_input_source": { "input_source_id": "com.aodaren.inputmethod.Qingg" } }],
+                                "type": "basic"
+                            },
+                            {
+                                "from": {
+                                    "key_code": "hyphen",
+                                    "modifiers": {
+                                        "mandatory": ["left_command", "left_option", "left_control", "left_shift"],
+                                        "optional": ["shift"]
+                                    }
+                                },
+                                "to": [{ "select_input_source": { "input_source_id": "com.apple.inputmethod.Kotoeri.RomajiTyping" } }],
+                                "type": "basic"
+                            }
+                        ]
+                    },
+                    {
+                        "description": "spacebar",
                         "manipulators": [
                             {
                                 "from": {
                                     "key_code": "spacebar",
                                     "modifiers": { "optional": ["any"] }
                                 },
-                                "to": [{ "key_code": "left_shift" }],
+                                "parameters": { "basic.to_if_alone_timeout_milliseconds": 200 },
+                                "to": [
+                                    {
+                                        "key_code": "left_shift",
+                                        "modifiers": []
+                                    }
+                                ],
                                 "to_if_alone": [{ "key_code": "spacebar" }],
+                                "type": "basic"
+                            }
+                        ]
+                    },
+                    {
+                        "description": "cansel",
+                        "manipulators": [
+                            {
+                                "from": {
+                                    "key_code": "f",
+                                    "modifiers": { "mandatory": ["option", "shift"] }
+                                },
+                                "to": [
+                                    {
+                                        "key_code": "f",
+                                        "modifiers": ["shift", "option"]
+                                    }
+                                ],
+                                "type": "basic"
+                            }
+                        ]
+                    },
+                    {
+                        "description": "escape",
+                        "manipulators": [
+                            {
+                                "from": {
+                                    "key_code": "escape",
+                                    "modifiers": { "optional": ["caps_lock"] }
+                                },
+                                "parameters": {
+                                    "basic.to_if_alone_timeout_milliseconds": 150,
+                                    "basic.to_if_held_down_threshold_milliseconds": 150
+                                },
+                                "to_if_alone": [{ "key_code": "escape" }],
+                                "to_if_held_down": [{ "key_code": "fn" }],
+                                "type": "basic"
+                            }
+                        ]
+                    },
+                    {
+                        "description": "Backslash",
+                        "manipulators": [
+                            {
+                                "from": {
+                                    "key_code": "backslash",
+                                    "modifiers": { "optional": ["any"] }
+                                },
+                                "parameters": { "basic.to_if_alone_timeout_milliseconds": 200 },
+                                "to": [{ "key_code": "left_control" }],
+                                "to_if_alone": [{ "key_code": "backslash" }],
+                                "type": "basic"
+                            }
+                        ]
+                    },
+                    {
+                        "description": "left_shift",
+                        "manipulators": [
+                            {
+                                "from": {
+                                    "key_code": "left_shift",
+                                    "modifiers": { "optional": ["any"] }
+                                },
+                                "parameters": { "basic.to_if_alone_timeout_milliseconds": 200 },
+                                "to": [
+                                    {
+                                        "key_code": "left_shift",
+                                        "modifiers": []
+                                    }
+                                ],
+                                "to_if_alone": [{ "key_code": "return_or_enter" }],
+                                "type": "basic"
+                            }
+                        ]
+                    },
+                    {
+                        "description": "right_control",
+                        "manipulators": [
+                            {
+                                "from": {
+                                    "key_code": "right_control",
+                                    "modifiers": { "optional": ["any"] }
+                                },
+                                "parameters": { "basic.to_if_alone_timeout_milliseconds": 200 },
+                                "to": [
+                                    {
+                                        "key_code": "right_control",
+                                        "modifiers": []
+                                    }
+                                ],
                                 "type": "basic"
                             }
                         ]
@@ -190,7 +264,7 @@
                                     "key_code": "open_bracket",
                                     "modifiers": {
                                         "mandatory": ["control"],
-                                        "optional": ["any"]
+                                        "optional": ["caps_lock", "shift"]
                                     }
                                 },
                                 "to": [
@@ -203,6 +277,11 @@
                             },
                             {
                                 "conditions": [
+                                    {
+                                        "name": "C-spacebar",
+                                        "type": "variable_unless",
+                                        "value": 1
+                                    },
                                     {
                                         "bundle_identifiers": [
                                             "^org\\.gnu\\.Emacs$",
@@ -256,7 +335,10 @@
                                 ],
                                 "from": {
                                     "key_code": "f",
-                                    "modifiers": { "mandatory": ["control"] }
+                                    "modifiers": {
+                                        "mandatory": ["control"],
+                                        "optional": ["caps_lock", "shift"]
+                                    }
                                 },
                                 "to": [
                                     {
@@ -268,6 +350,11 @@
                             },
                             {
                                 "conditions": [
+                                    {
+                                        "name": "C-spacebar",
+                                        "type": "variable_unless",
+                                        "value": 1
+                                    },
                                     {
                                         "bundle_identifiers": [
                                             "^org\\.gnu\\.Emacs$",
@@ -323,7 +410,7 @@
                                     "key_code": "b",
                                     "modifiers": {
                                         "mandatory": ["control"],
-                                        "optional": ["any"]
+                                        "optional": ["caps_lock", "shift"]
                                     }
                                 },
                                 "to": [
@@ -389,10 +476,7 @@
                                 ],
                                 "from": {
                                     "key_code": "n",
-                                    "modifiers": {
-                                        "mandatory": ["control"],
-                                        "optional": ["any"]
-                                    }
+                                    "modifiers": { "mandatory": ["control"] }
                                 },
                                 "to": [
                                     {
@@ -457,10 +541,7 @@
                                 ],
                                 "from": {
                                     "key_code": "p",
-                                    "modifiers": {
-                                        "mandatory": ["control"],
-                                        "optional": ["any"]
-                                    }
+                                    "modifiers": { "mandatory": ["control"] }
                                 },
                                 "to": [
                                     {
@@ -468,6 +549,237 @@
                                         "modifiers": []
                                     }
                                 ],
+                                "type": "basic"
+                            },
+                            {
+                                "conditions": [
+                                    {
+                                        "bundle_identifiers": [
+                                            "^org\\.gnu\\.Emacs$",
+                                            "^org\\.gnu\\.AquamacsEmacs$",
+                                            "^org\\.gnu\\.Aquamacs$",
+                                            "^org\\.pqrs\\.unknownapp\\.conkeror$",
+                                            "^com\\.microsoft\\.rdc$",
+                                            "^com\\.microsoft\\.rdc\\.",
+                                            "^net\\.sf\\.cord$",
+                                            "^com\\.thinomenon\\.RemoteDesktopConnection$",
+                                            "^com\\.itap-mobile\\.qmote$",
+                                            "^com\\.nulana\\.remotixmac$",
+                                            "^com\\.p5sys\\.jump\\.mac\\.viewer$",
+                                            "^com\\.p5sys\\.jump\\.mac\\.viewer\\.",
+                                            "^com\\.teamviewer\\.TeamViewer$",
+                                            "^com\\.vmware\\.horizon$",
+                                            "^com\\.2X\\.Client\\.Mac$",
+                                            "^com\\.OpenText\\.Exceed-TurboX-Client$",
+                                            "^com\\.realvnc\\.vncviewer$",
+                                            "^com\\.citrix\\.receiver\\.icaviewer",
+                                            "^com\\.apple\\.Terminal$",
+                                            "^com\\.googlecode\\.iterm2$",
+                                            "^co\\.zeit\\.hyperterm$",
+                                            "^co\\.zeit\\.hyper$",
+                                            "^io\\.alacritty$",
+                                            "^org\\.alacritty$",
+                                            "^net\\.kovidgoyal\\.kitty$",
+                                            "^com\\.mitchellh\\.ghostty$",
+                                            "^org\\.vim\\.",
+                                            "^com\\.qvacua\\.VimR$",
+                                            "^com\\.vmware\\.fusion$",
+                                            "^com\\.vmware\\.horizon$",
+                                            "^com\\.vmware\\.view$",
+                                            "^com\\.parallels\\.desktop$",
+                                            "^com\\.parallels\\.vm$",
+                                            "^com\\.parallels\\.desktop\\.console$",
+                                            "^org\\.virtualbox\\.app\\.VirtualBoxVM$",
+                                            "^com\\.citrix\\.XenAppViewer$",
+                                            "^com\\.vmware\\.proxyApp\\.",
+                                            "^com\\.parallels\\.winapp\\.",
+                                            "^com\\.utmapp\\.UTM$",
+                                            "^org\\.x\\.X11$",
+                                            "^com\\.apple\\.x11$",
+                                            "^org\\.macosforge\\.xquartz\\.X11$",
+                                            "^org\\.macports\\.X11$",
+                                            "^com\\.sublimetext\\.",
+                                            "^com\\.microsoft\\.VSCode$",
+                                            "^com\\.jetbrains\\."
+                                        ],
+                                        "type": "frontmost_application_unless"
+                                    }
+                                ],
+                                "from": {
+                                    "key_code": "v",
+                                    "modifiers": {
+                                        "mandatory": ["option"],
+                                        "optional": ["shift"]
+                                    }
+                                },
+                                "to": [{ "key_code": "page_up" }],
+                                "type": "basic"
+                            },
+                            {
+                                "conditions": [
+                                    {
+                                        "name": "C-spacebar",
+                                        "type": "variable_unless",
+                                        "value": 1
+                                    },
+                                    {
+                                        "bundle_identifiers": [
+                                            "^org\\.gnu\\.Emacs$",
+                                            "^org\\.gnu\\.AquamacsEmacs$",
+                                            "^org\\.gnu\\.Aquamacs$",
+                                            "^org\\.pqrs\\.unknownapp\\.conkeror$",
+                                            "^com\\.microsoft\\.rdc$",
+                                            "^com\\.microsoft\\.rdc\\.",
+                                            "^net\\.sf\\.cord$",
+                                            "^com\\.thinomenon\\.RemoteDesktopConnection$",
+                                            "^com\\.itap-mobile\\.qmote$",
+                                            "^com\\.nulana\\.remotixmac$",
+                                            "^com\\.p5sys\\.jump\\.mac\\.viewer$",
+                                            "^com\\.p5sys\\.jump\\.mac\\.viewer\\.",
+                                            "^com\\.teamviewer\\.TeamViewer$",
+                                            "^com\\.vmware\\.horizon$",
+                                            "^com\\.2X\\.Client\\.Mac$",
+                                            "^com\\.OpenText\\.Exceed-TurboX-Client$",
+                                            "^com\\.realvnc\\.vncviewer$",
+                                            "^com\\.citrix\\.receiver\\.icaviewer",
+                                            "^com\\.apple\\.Terminal$",
+                                            "^com\\.googlecode\\.iterm2$",
+                                            "^co\\.zeit\\.hyperterm$",
+                                            "^co\\.zeit\\.hyper$",
+                                            "^io\\.alacritty$",
+                                            "^org\\.alacritty$",
+                                            "^net\\.kovidgoyal\\.kitty$",
+                                            "^org\\.vim\\.",
+                                            "^com\\.qvacua\\.VimR$",
+                                            "^com\\.vmware\\.fusion$",
+                                            "^com\\.vmware\\.horizon$",
+                                            "^com\\.vmware\\.view$",
+                                            "^com\\.parallels\\.desktop$",
+                                            "^com\\.parallels\\.vm$",
+                                            "^com\\.parallels\\.desktop\\.console$",
+                                            "^org\\.virtualbox\\.app\\.VirtualBoxVM$",
+                                            "^com\\.citrix\\.XenAppViewer$",
+                                            "^com\\.vmware\\.proxyApp\\.",
+                                            "^com\\.parallels\\.winapp\\.",
+                                            "^com\\.utmapp\\.UTM$",
+                                            "^org\\.x\\.X11$",
+                                            "^com\\.apple\\.x11$",
+                                            "^org\\.macosforge\\.xquartz\\.X11$",
+                                            "^org\\.macports\\.X11$",
+                                            "^com\\.sublimetext\\.",
+                                            "^com\\.microsoft\\.VSCode$",
+                                            "^com\\.jetbrains\\."
+                                        ],
+                                        "type": "frontmost_application_unless"
+                                    }
+                                ],
+                                "from": {
+                                    "key_code": "v",
+                                    "modifiers": {
+                                        "mandatory": ["control"],
+                                        "optional": ["caps_lock", "shift"]
+                                    }
+                                },
+                                "to": [{ "key_code": "page_down" }],
+                                "type": "basic"
+                            },
+                            {
+                                "conditions": [
+                                    {
+                                        "bundle_identifiers": [
+                                            "^org\\.gnu\\.Emacs$",
+                                            "^org\\.gnu\\.AquamacsEmacs$",
+                                            "^org\\.gnu\\.Aquamacs$",
+                                            "^org\\.pqrs\\.unknownapp\\.conkeror$",
+                                            "^com\\.microsoft\\.rdc$",
+                                            "^com\\.microsoft\\.rdc\\.",
+                                            "^net\\.sf\\.cord$",
+                                            "^com\\.thinomenon\\.RemoteDesktopConnection$",
+                                            "^com\\.itap-mobile\\.qmote$",
+                                            "^com\\.nulana\\.remotixmac$",
+                                            "^com\\.p5sys\\.jump\\.mac\\.viewer$",
+                                            "^com\\.p5sys\\.jump\\.mac\\.viewer\\.",
+                                            "^com\\.teamviewer\\.TeamViewer$",
+                                            "^com\\.vmware\\.horizon$",
+                                            "^com\\.2X\\.Client\\.Mac$",
+                                            "^com\\.OpenText\\.Exceed-TurboX-Client$",
+                                            "^com\\.realvnc\\.vncviewer$",
+                                            "^com\\.citrix\\.receiver\\.icaviewer",
+                                            "^com\\.apple\\.Terminal$",
+                                            "^com\\.googlecode\\.iterm2$",
+                                            "^co\\.zeit\\.hyperterm$",
+                                            "^co\\.zeit\\.hyper$",
+                                            "^io\\.alacritty$",
+                                            "^org\\.alacritty$",
+                                            "^net\\.kovidgoyal\\.kitty$",
+                                            "^com\\.mitchellh\\.ghostty$",
+                                            "^org\\.vim\\.",
+                                            "^com\\.qvacua\\.VimR$",
+                                            "^com\\.vmware\\.fusion$",
+                                            "^com\\.vmware\\.horizon$",
+                                            "^com\\.vmware\\.view$",
+                                            "^com\\.parallels\\.desktop$",
+                                            "^com\\.parallels\\.vm$",
+                                            "^com\\.parallels\\.desktop\\.console$",
+                                            "^org\\.virtualbox\\.app\\.VirtualBoxVM$",
+                                            "^com\\.citrix\\.XenAppViewer$",
+                                            "^com\\.vmware\\.proxyApp\\.",
+                                            "^com\\.parallels\\.winapp\\.",
+                                            "^com\\.utmapp\\.UTM$",
+                                            "^org\\.x\\.X11$",
+                                            "^com\\.apple\\.x11$",
+                                            "^org\\.macosforge\\.xquartz\\.X11$",
+                                            "^org\\.macports\\.X11$",
+                                            "^com\\.sublimetext\\.",
+                                            "^com\\.microsoft\\.VSCode$",
+                                            "^com\\.jetbrains\\."
+                                        ],
+                                        "type": "frontmost_application_unless"
+                                    }
+                                ],
+                                "from": {
+                                    "key_code": "delete_or_backspace",
+                                    "modifiers": {
+                                        "mandatory": ["option"],
+                                        "optional": ["any"]
+                                    }
+                                },
+                                "to": [
+                                    {
+                                        "key_code": "delete_or_backspace",
+                                        "modifiers": ["option"]
+                                    }
+                                ],
+                                "type": "basic"
+                            }
+                        ]
+                    },
+                    {
+                        "description": "return_or_enter",
+                        "manipulators": [
+                            {
+                                "from": {
+                                    "key_code": "return_or_enter",
+                                    "modifiers": { "optional": ["any"] }
+                                },
+                                "parameters": { "basic.to_if_alone_timeout_milliseconds": 200 },
+                                "to": [{ "key_code": "left_command" }],
+                                "to_if_alone": [{ "key_code": "return_or_enter" }],
+                                "type": "basic"
+                            }
+                        ]
+                    },
+                    {
+                        "description": "caps_lock",
+                        "manipulators": [
+                            {
+                                "from": {
+                                    "key_code": "caps_lock",
+                                    "modifiers": { "optional": ["any"] }
+                                },
+                                "parameters": { "basic.to_if_alone_timeout_milliseconds": 200 },
+                                "to": [{ "key_code": "left_control" }],
+                                "to_if_alone": [{ "key_code": "escape" }],
                                 "type": "basic"
                             }
                         ]
@@ -509,6 +821,7 @@
                                             "^io\\.alacritty$",
                                             "^org\\.alacritty$",
                                             "^net\\.kovidgoyal\\.kitty$",
+                                            "^com\\.mitchellh\\.ghostty$",
                                             "^org\\.vim\\.",
                                             "^com\\.qvacua\\.VimR$",
                                             "^com\\.vmware\\.fusion$",
@@ -582,6 +895,7 @@
                                             "^io\\.alacritty$",
                                             "^org\\.alacritty$",
                                             "^net\\.kovidgoyal\\.kitty$",
+                                            "^com\\.mitchellh\\.ghostty$",
                                             "^org\\.vim\\.",
                                             "^com\\.qvacua\\.VimR$",
                                             "^com\\.vmware\\.fusion$",
@@ -655,6 +969,7 @@
                                             "^io\\.alacritty$",
                                             "^org\\.alacritty$",
                                             "^net\\.kovidgoyal\\.kitty$",
+                                            "^com\\.mitchellh\\.ghostty$",
                                             "^org\\.vim\\.",
                                             "^com\\.qvacua\\.VimR$",
                                             "^com\\.vmware\\.fusion$",
@@ -735,6 +1050,7 @@
                                             "^io\\.alacritty$",
                                             "^org\\.alacritty$",
                                             "^net\\.kovidgoyal\\.kitty$",
+                                            "^com\\.mitchellh\\.ghostty$",
                                             "^org\\.vim\\.",
                                             "^com\\.qvacua\\.VimR$",
                                             "^com\\.vmware\\.fusion$",
@@ -900,6 +1216,7 @@
                                             "^io\\.alacritty$",
                                             "^org\\.alacritty$",
                                             "^net\\.kovidgoyal\\.kitty$",
+                                            "^com\\.mitchellh\\.ghostty$",
                                             "^org\\.vim\\.",
                                             "^com\\.qvacua\\.VimR$",
                                             "^com\\.vmware\\.fusion$",
@@ -986,6 +1303,7 @@
                                             "^io\\.alacritty$",
                                             "^org\\.alacritty$",
                                             "^net\\.kovidgoyal\\.kitty$",
+                                            "^com\\.mitchellh\\.ghostty$",
                                             "^org\\.vim\\.",
                                             "^com\\.qvacua\\.VimR$",
                                             "^com\\.vmware\\.fusion$",
@@ -1059,6 +1377,7 @@
                                             "^io\\.alacritty$",
                                             "^org\\.alacritty$",
                                             "^net\\.kovidgoyal\\.kitty$",
+                                            "^com\\.mitchellh\\.ghostty$",
                                             "^org\\.vim\\.",
                                             "^com\\.qvacua\\.VimR$",
                                             "^com\\.vmware\\.fusion$",
@@ -1132,6 +1451,7 @@
                                             "^io\\.alacritty$",
                                             "^org\\.alacritty$",
                                             "^net\\.kovidgoyal\\.kitty$",
+                                            "^com\\.mitchellh\\.ghostty$",
                                             "^org\\.vim\\.",
                                             "^com\\.qvacua\\.VimR$",
                                             "^com\\.vmware\\.fusion$",
@@ -1205,6 +1525,7 @@
                                             "^io\\.alacritty$",
                                             "^org\\.alacritty$",
                                             "^net\\.kovidgoyal\\.kitty$",
+                                            "^com\\.mitchellh\\.ghostty$",
                                             "^org\\.vim\\.",
                                             "^com\\.qvacua\\.VimR$",
                                             "^com\\.vmware\\.fusion$",
@@ -1278,6 +1599,7 @@
                                             "^io\\.alacritty$",
                                             "^org\\.alacritty$",
                                             "^net\\.kovidgoyal\\.kitty$",
+                                            "^com\\.mitchellh\\.ghostty$",
                                             "^org\\.vim\\.",
                                             "^com\\.qvacua\\.VimR$",
                                             "^com\\.vmware\\.fusion$",
@@ -1351,6 +1673,7 @@
                                             "^io\\.alacritty$",
                                             "^org\\.alacritty$",
                                             "^net\\.kovidgoyal\\.kitty$",
+                                            "^com\\.mitchellh\\.ghostty$",
                                             "^org\\.vim\\.",
                                             "^com\\.qvacua\\.VimR$",
                                             "^com\\.vmware\\.fusion$",
@@ -1437,6 +1760,7 @@
                                             "^io\\.alacritty$",
                                             "^org\\.alacritty$",
                                             "^net\\.kovidgoyal\\.kitty$",
+                                            "^com\\.mitchellh\\.ghostty$",
                                             "^org\\.vim\\.",
                                             "^com\\.qvacua\\.VimR$",
                                             "^com\\.vmware\\.fusion$",
@@ -1510,6 +1834,7 @@
                                             "^io\\.alacritty$",
                                             "^org\\.alacritty$",
                                             "^net\\.kovidgoyal\\.kitty$",
+                                            "^com\\.mitchellh\\.ghostty$",
                                             "^org\\.vim\\.",
                                             "^com\\.qvacua\\.VimR$",
                                             "^com\\.vmware\\.fusion$",
@@ -1583,6 +1908,7 @@
                                             "^io\\.alacritty$",
                                             "^org\\.alacritty$",
                                             "^net\\.kovidgoyal\\.kitty$",
+                                            "^com\\.mitchellh\\.ghostty$",
                                             "^org\\.vim\\.",
                                             "^com\\.qvacua\\.VimR$",
                                             "^com\\.vmware\\.fusion$",
@@ -1656,6 +1982,7 @@
                                             "^io\\.alacritty$",
                                             "^org\\.alacritty$",
                                             "^net\\.kovidgoyal\\.kitty$",
+                                            "^com\\.mitchellh\\.ghostty$",
                                             "^org\\.vim\\.",
                                             "^com\\.qvacua\\.VimR$",
                                             "^com\\.vmware\\.fusion$",
@@ -1742,6 +2069,7 @@
                                             "^io\\.alacritty$",
                                             "^org\\.alacritty$",
                                             "^net\\.kovidgoyal\\.kitty$",
+                                            "^com\\.mitchellh\\.ghostty$",
                                             "^org\\.vim\\.",
                                             "^com\\.qvacua\\.VimR$",
                                             "^com\\.vmware\\.fusion$",
@@ -1821,6 +2149,7 @@
                                             "^io\\.alacritty$",
                                             "^org\\.alacritty$",
                                             "^net\\.kovidgoyal\\.kitty$",
+                                            "^com\\.mitchellh\\.ghostty$",
                                             "^org\\.vim\\.",
                                             "^com\\.qvacua\\.VimR$",
                                             "^com\\.vmware\\.fusion$",
@@ -1900,6 +2229,7 @@
                                             "^io\\.alacritty$",
                                             "^org\\.alacritty$",
                                             "^net\\.kovidgoyal\\.kitty$",
+                                            "^com\\.mitchellh\\.ghostty$",
                                             "^org\\.vim\\.",
                                             "^com\\.qvacua\\.VimR$",
                                             "^com\\.vmware\\.fusion$",
@@ -1979,6 +2309,7 @@
                                             "^io\\.alacritty$",
                                             "^org\\.alacritty$",
                                             "^net\\.kovidgoyal\\.kitty$",
+                                            "^com\\.mitchellh\\.ghostty$",
                                             "^org\\.vim\\.",
                                             "^com\\.qvacua\\.VimR$",
                                             "^com\\.vmware\\.fusion$",
@@ -2058,6 +2389,7 @@
                                             "^io\\.alacritty$",
                                             "^org\\.alacritty$",
                                             "^net\\.kovidgoyal\\.kitty$",
+                                            "^com\\.mitchellh\\.ghostty$",
                                             "^org\\.vim\\.",
                                             "^com\\.qvacua\\.VimR$",
                                             "^com\\.vmware\\.fusion$",
@@ -2137,6 +2469,7 @@
                                             "^io\\.alacritty$",
                                             "^org\\.alacritty$",
                                             "^net\\.kovidgoyal\\.kitty$",
+                                            "^com\\.mitchellh\\.ghostty$",
                                             "^org\\.vim\\.",
                                             "^com\\.qvacua\\.VimR$",
                                             "^com\\.vmware\\.fusion$",
@@ -2225,6 +2558,7 @@
                                             "^io\\.alacritty$",
                                             "^org\\.alacritty$",
                                             "^net\\.kovidgoyal\\.kitty$",
+                                            "^com\\.mitchellh\\.ghostty$",
                                             "^org\\.vim\\.",
                                             "^com\\.qvacua\\.VimR$",
                                             "^com\\.vmware\\.fusion$",
@@ -2318,6 +2652,7 @@
                                             "^io\\.alacritty$",
                                             "^org\\.alacritty$",
                                             "^net\\.kovidgoyal\\.kitty$",
+                                            "^com\\.mitchellh\\.ghostty$",
                                             "^org\\.vim\\.",
                                             "^com\\.qvacua\\.VimR$",
                                             "^com\\.vmware\\.fusion$",
@@ -2397,6 +2732,7 @@
                                             "^io\\.alacritty$",
                                             "^org\\.alacritty$",
                                             "^net\\.kovidgoyal\\.kitty$",
+                                            "^com\\.mitchellh\\.ghostty$",
                                             "^org\\.vim\\.",
                                             "^com\\.qvacua\\.VimR$",
                                             "^com\\.vmware\\.fusion$",
@@ -2470,6 +2806,7 @@
                                             "^io\\.alacritty$",
                                             "^org\\.alacritty$",
                                             "^net\\.kovidgoyal\\.kitty$",
+                                            "^com\\.mitchellh\\.ghostty$",
                                             "^org\\.vim\\.",
                                             "^com\\.qvacua\\.VimR$",
                                             "^com\\.vmware\\.fusion$",
@@ -2543,6 +2880,7 @@
                                             "^io\\.alacritty$",
                                             "^org\\.alacritty$",
                                             "^net\\.kovidgoyal\\.kitty$",
+                                            "^com\\.mitchellh\\.ghostty$",
                                             "^org\\.vim\\.",
                                             "^com\\.qvacua\\.VimR$",
                                             "^com\\.vmware\\.fusion$",
@@ -2611,6 +2949,7 @@
                                             "^io\\.alacritty$",
                                             "^org\\.alacritty$",
                                             "^net\\.kovidgoyal\\.kitty$",
+                                            "^com\\.mitchellh\\.ghostty$",
                                             "^org\\.vim\\.",
                                             "^com\\.qvacua\\.VimR$",
                                             "^com\\.vmware\\.fusion$",
@@ -2687,6 +3026,7 @@
                                             "^io\\.alacritty$",
                                             "^org\\.alacritty$",
                                             "^net\\.kovidgoyal\\.kitty$",
+                                            "^com\\.mitchellh\\.ghostty$",
                                             "^org\\.vim\\.",
                                             "^com\\.qvacua\\.VimR$",
                                             "^com\\.vmware\\.fusion$",
@@ -2766,6 +3106,7 @@
                                             "^io\\.alacritty$",
                                             "^org\\.alacritty$",
                                             "^net\\.kovidgoyal\\.kitty$",
+                                            "^com\\.mitchellh\\.ghostty$",
                                             "^org\\.vim\\.",
                                             "^com\\.qvacua\\.VimR$",
                                             "^com\\.vmware\\.fusion$",
@@ -2839,6 +3180,7 @@
                                             "^io\\.alacritty$",
                                             "^org\\.alacritty$",
                                             "^net\\.kovidgoyal\\.kitty$",
+                                            "^com\\.mitchellh\\.ghostty$",
                                             "^org\\.vim\\.",
                                             "^com\\.qvacua\\.VimR$",
                                             "^com\\.vmware\\.fusion$",
@@ -2912,6 +3254,7 @@
                                             "^io\\.alacritty$",
                                             "^org\\.alacritty$",
                                             "^net\\.kovidgoyal\\.kitty$",
+                                            "^com\\.mitchellh\\.ghostty$",
                                             "^org\\.vim\\.",
                                             "^com\\.qvacua\\.VimR$",
                                             "^com\\.vmware\\.fusion$",
@@ -2980,6 +3323,7 @@
                                             "^io\\.alacritty$",
                                             "^org\\.alacritty$",
                                             "^net\\.kovidgoyal\\.kitty$",
+                                            "^com\\.mitchellh\\.ghostty$",
                                             "^org\\.vim\\.",
                                             "^com\\.qvacua\\.VimR$",
                                             "^com\\.vmware\\.fusion$",
@@ -3056,6 +3400,7 @@
                                             "^io\\.alacritty$",
                                             "^org\\.alacritty$",
                                             "^net\\.kovidgoyal\\.kitty$",
+                                            "^com\\.mitchellh\\.ghostty$",
                                             "^org\\.vim\\.",
                                             "^com\\.qvacua\\.VimR$",
                                             "^com\\.vmware\\.fusion$",
@@ -3142,6 +3487,7 @@
                                             "^io\\.alacritty$",
                                             "^org\\.alacritty$",
                                             "^net\\.kovidgoyal\\.kitty$",
+                                            "^com\\.mitchellh\\.ghostty$",
                                             "^org\\.vim\\.",
                                             "^com\\.qvacua\\.VimR$",
                                             "^com\\.vmware\\.fusion$",
@@ -3228,6 +3574,7 @@
                                             "^io\\.alacritty$",
                                             "^org\\.alacritty$",
                                             "^net\\.kovidgoyal\\.kitty$",
+                                            "^com\\.mitchellh\\.ghostty$",
                                             "^org\\.vim\\.",
                                             "^com\\.qvacua\\.VimR$",
                                             "^com\\.vmware\\.fusion$",
@@ -3309,6 +3656,7 @@
                                             "^io\\.alacritty$",
                                             "^org\\.alacritty$",
                                             "^net\\.kovidgoyal\\.kitty$",
+                                            "^com\\.mitchellh\\.ghostty$",
                                             "^org\\.vim\\.",
                                             "^com\\.qvacua\\.VimR$",
                                             "^com\\.vmware\\.fusion$",
@@ -3395,6 +3743,7 @@
                                             "^io\\.alacritty$",
                                             "^org\\.alacritty$",
                                             "^net\\.kovidgoyal\\.kitty$",
+                                            "^com\\.mitchellh\\.ghostty$",
                                             "^org\\.vim\\.",
                                             "^com\\.qvacua\\.VimR$",
                                             "^com\\.vmware\\.fusion$",
@@ -3481,6 +3830,7 @@
                                             "^io\\.alacritty$",
                                             "^org\\.alacritty$",
                                             "^net\\.kovidgoyal\\.kitty$",
+                                            "^com\\.mitchellh\\.ghostty$",
                                             "^org\\.vim\\.",
                                             "^com\\.qvacua\\.VimR$",
                                             "^com\\.vmware\\.fusion$",
@@ -3567,6 +3917,7 @@
                                             "^io\\.alacritty$",
                                             "^org\\.alacritty$",
                                             "^net\\.kovidgoyal\\.kitty$",
+                                            "^com\\.mitchellh\\.ghostty$",
                                             "^org\\.vim\\.",
                                             "^com\\.qvacua\\.VimR$",
                                             "^com\\.vmware\\.fusion$",
@@ -3648,6 +3999,7 @@
                                             "^io\\.alacritty$",
                                             "^org\\.alacritty$",
                                             "^net\\.kovidgoyal\\.kitty$",
+                                            "^com\\.mitchellh\\.ghostty$",
                                             "^org\\.vim\\.",
                                             "^com\\.qvacua\\.VimR$",
                                             "^com\\.vmware\\.fusion$",
@@ -3729,6 +4081,7 @@
                                             "^io\\.alacritty$",
                                             "^org\\.alacritty$",
                                             "^net\\.kovidgoyal\\.kitty$",
+                                            "^com\\.mitchellh\\.ghostty$",
                                             "^org\\.vim\\.",
                                             "^com\\.qvacua\\.VimR$",
                                             "^com\\.vmware\\.fusion$",
@@ -3797,6 +4150,7 @@
                                             "^io\\.alacritty$",
                                             "^org\\.alacritty$",
                                             "^net\\.kovidgoyal\\.kitty$",
+                                            "^com\\.mitchellh\\.ghostty$",
                                             "^org\\.vim\\.",
                                             "^com\\.qvacua\\.VimR$",
                                             "^com\\.vmware\\.fusion$",
@@ -3870,6 +4224,7 @@
                                             "^io\\.alacritty$",
                                             "^org\\.alacritty$",
                                             "^net\\.kovidgoyal\\.kitty$",
+                                            "^com\\.mitchellh\\.ghostty$",
                                             "^org\\.vim\\.",
                                             "^com\\.qvacua\\.VimR$",
                                             "^com\\.vmware\\.fusion$",
@@ -3901,7 +4256,15 @@
                                         "optional": ["caps_lock", "shift"]
                                     }
                                 },
-                                "to": [{ "key_code": "page_down" }],
+                                "to": [
+                                    { "key_code": "page_down" },
+                                    {
+                                        "set_variable": {
+                                            "name": "C-spacebar",
+                                            "value": 0
+                                        }
+                                    }
+                                ],
                                 "type": "basic"
                             },
                             {
@@ -3938,6 +4301,7 @@
                                             "^io\\.alacritty$",
                                             "^org\\.alacritty$",
                                             "^net\\.kovidgoyal\\.kitty$",
+                                            "^com\\.mitchellh\\.ghostty$",
                                             "^org\\.vim\\.",
                                             "^com\\.qvacua\\.VimR$",
                                             "^com\\.vmware\\.fusion$",
@@ -4011,6 +4375,7 @@
                                             "^io\\.alacritty$",
                                             "^org\\.alacritty$",
                                             "^net\\.kovidgoyal\\.kitty$",
+                                            "^com\\.mitchellh\\.ghostty$",
                                             "^org\\.vim\\.",
                                             "^com\\.qvacua\\.VimR$",
                                             "^com\\.vmware\\.fusion$",
@@ -4085,6 +4450,7 @@
                                             "^io\\.alacritty$",
                                             "^org\\.alacritty$",
                                             "^net\\.kovidgoyal\\.kitty$",
+                                            "^com\\.mitchellh\\.ghostty$",
                                             "^org\\.vim\\.",
                                             "^com\\.qvacua\\.VimR$",
                                             "^com\\.vmware\\.fusion$",
@@ -4116,7 +4482,8 @@
                                             "^co\\.zeit\\.hyper$",
                                             "^io\\.alacritty$",
                                             "^org\\.alacritty$",
-                                            "^net\\.kovidgoyal\\.kitty$"
+                                            "^net\\.kovidgoyal\\.kitty$",
+                                            "^com\\.mitchellh\\.ghostty$"
                                         ],
                                         "type": "frontmost_application_unless"
                                     }
@@ -4165,6 +4532,7 @@
                                             "^io\\.alacritty$",
                                             "^org\\.alacritty$",
                                             "^net\\.kovidgoyal\\.kitty$",
+                                            "^com\\.mitchellh\\.ghostty$",
                                             "^org\\.vim\\.",
                                             "^com\\.qvacua\\.VimR$",
                                             "^com\\.vmware\\.fusion$",
@@ -4196,7 +4564,8 @@
                                             "^co\\.zeit\\.hyper$",
                                             "^io\\.alacritty$",
                                             "^org\\.alacritty$",
-                                            "^net\\.kovidgoyal\\.kitty$"
+                                            "^net\\.kovidgoyal\\.kitty$",
+                                            "^com\\.mitchellh\\.ghostty$"
                                         ],
                                         "type": "frontmost_application_if"
                                     }
@@ -4249,6 +4618,7 @@
                                             "^io\\.alacritty$",
                                             "^org\\.alacritty$",
                                             "^net\\.kovidgoyal\\.kitty$",
+                                            "^com\\.mitchellh\\.ghostty$",
                                             "^org\\.vim\\.",
                                             "^com\\.qvacua\\.VimR$",
                                             "^com\\.vmware\\.fusion$",
@@ -4291,6 +4661,11 @@
                             {
                                 "conditions": [
                                     {
+                                        "name": "C-spacebar",
+                                        "type": "variable_unless",
+                                        "value": 1
+                                    },
+                                    {
                                         "bundle_identifiers": [
                                             "^org\\.gnu\\.Emacs$",
                                             "^org\\.gnu\\.AquamacsEmacs$",
@@ -4317,6 +4692,154 @@
                                             "^io\\.alacritty$",
                                             "^org\\.alacritty$",
                                             "^net\\.kovidgoyal\\.kitty$",
+                                            "^com\\.mitchellh\\.ghostty$",
+                                            "^org\\.vim\\.",
+                                            "^com\\.qvacua\\.VimR$",
+                                            "^com\\.vmware\\.fusion$",
+                                            "^com\\.vmware\\.horizon$",
+                                            "^com\\.vmware\\.view$",
+                                            "^com\\.parallels\\.desktop$",
+                                            "^com\\.parallels\\.vm$",
+                                            "^com\\.parallels\\.desktop\\.console$",
+                                            "^org\\.virtualbox\\.app\\.VirtualBoxVM$",
+                                            "^com\\.citrix\\.XenAppViewer$",
+                                            "^com\\.vmware\\.proxyApp\\.",
+                                            "^com\\.parallels\\.winapp\\.",
+                                            "^com\\.utmapp\\.UTM$",
+                                            "^org\\.x\\.X11$",
+                                            "^com\\.apple\\.x11$",
+                                            "^org\\.macosforge\\.xquartz\\.X11$",
+                                            "^org\\.macports\\.X11$",
+                                            "^com\\.sublimetext\\.",
+                                            "^com\\.microsoft\\.VSCode$",
+                                            "^com\\.jetbrains\\."
+                                        ],
+                                        "type": "frontmost_application_unless"
+                                    }
+                                ],
+                                "from": {
+                                    "key_code": "spacebar",
+                                    "modifiers": {
+                                        "mandatory": ["control"],
+                                        "optional": ["caps_lock", "shift"]
+                                    }
+                                },
+                                "to": [
+                                    {
+                                        "set_variable": {
+                                            "name": "C-spacebar",
+                                            "value": 1
+                                        }
+                                    }
+                                ],
+                                "type": "basic"
+                            },
+                            {
+                                "conditions": [
+                                    {
+                                        "name": "C-spacebar",
+                                        "type": "variable_if",
+                                        "value": 1
+                                    },
+                                    {
+                                        "bundle_identifiers": [
+                                            "^org\\.gnu\\.Emacs$",
+                                            "^org\\.gnu\\.AquamacsEmacs$",
+                                            "^org\\.gnu\\.Aquamacs$",
+                                            "^org\\.pqrs\\.unknownapp\\.conkeror$",
+                                            "^com\\.microsoft\\.rdc$",
+                                            "^com\\.microsoft\\.rdc\\.",
+                                            "^net\\.sf\\.cord$",
+                                            "^com\\.thinomenon\\.RemoteDesktopConnection$",
+                                            "^com\\.itap-mobile\\.qmote$",
+                                            "^com\\.nulana\\.remotixmac$",
+                                            "^com\\.p5sys\\.jump\\.mac\\.viewer$",
+                                            "^com\\.p5sys\\.jump\\.mac\\.viewer\\.",
+                                            "^com\\.teamviewer\\.TeamViewer$",
+                                            "^com\\.vmware\\.horizon$",
+                                            "^com\\.2X\\.Client\\.Mac$",
+                                            "^com\\.OpenText\\.Exceed-TurboX-Client$",
+                                            "^com\\.realvnc\\.vncviewer$",
+                                            "^com\\.citrix\\.receiver\\.icaviewer",
+                                            "^com\\.apple\\.Terminal$",
+                                            "^com\\.googlecode\\.iterm2$",
+                                            "^co\\.zeit\\.hyperterm$",
+                                            "^co\\.zeit\\.hyper$",
+                                            "^io\\.alacritty$",
+                                            "^org\\.alacritty$",
+                                            "^net\\.kovidgoyal\\.kitty$",
+                                            "^com\\.mitchellh\\.ghostty$",
+                                            "^org\\.vim\\.",
+                                            "^com\\.qvacua\\.VimR$",
+                                            "^com\\.vmware\\.fusion$",
+                                            "^com\\.vmware\\.horizon$",
+                                            "^com\\.vmware\\.view$",
+                                            "^com\\.parallels\\.desktop$",
+                                            "^com\\.parallels\\.vm$",
+                                            "^com\\.parallels\\.desktop\\.console$",
+                                            "^org\\.virtualbox\\.app\\.VirtualBoxVM$",
+                                            "^com\\.citrix\\.XenAppViewer$",
+                                            "^com\\.vmware\\.proxyApp\\.",
+                                            "^com\\.parallels\\.winapp\\.",
+                                            "^com\\.utmapp\\.UTM$",
+                                            "^org\\.x\\.X11$",
+                                            "^com\\.apple\\.x11$",
+                                            "^org\\.macosforge\\.xquartz\\.X11$",
+                                            "^org\\.macports\\.X11$",
+                                            "^com\\.sublimetext\\.",
+                                            "^com\\.microsoft\\.VSCode$",
+                                            "^com\\.jetbrains\\."
+                                        ],
+                                        "type": "frontmost_application_unless"
+                                    }
+                                ],
+                                "from": {
+                                    "key_code": "spacebar",
+                                    "modifiers": {
+                                        "mandatory": ["control"],
+                                        "optional": ["caps_lock", "shift"]
+                                    }
+                                },
+                                "to": [
+                                    {
+                                        "set_variable": {
+                                            "name": "C-spacebar",
+                                            "value": 0
+                                        }
+                                    }
+                                ],
+                                "type": "basic"
+                            },
+                            {
+                                "conditions": [
+                                    {
+                                        "bundle_identifiers": [
+                                            "^org\\.gnu\\.Emacs$",
+                                            "^org\\.gnu\\.AquamacsEmacs$",
+                                            "^org\\.gnu\\.Aquamacs$",
+                                            "^org\\.pqrs\\.unknownapp\\.conkeror$",
+                                            "^com\\.microsoft\\.rdc$",
+                                            "^com\\.microsoft\\.rdc\\.",
+                                            "^net\\.sf\\.cord$",
+                                            "^com\\.thinomenon\\.RemoteDesktopConnection$",
+                                            "^com\\.itap-mobile\\.qmote$",
+                                            "^com\\.nulana\\.remotixmac$",
+                                            "^com\\.p5sys\\.jump\\.mac\\.viewer$",
+                                            "^com\\.p5sys\\.jump\\.mac\\.viewer\\.",
+                                            "^com\\.teamviewer\\.TeamViewer$",
+                                            "^com\\.vmware\\.horizon$",
+                                            "^com\\.2X\\.Client\\.Mac$",
+                                            "^com\\.OpenText\\.Exceed-TurboX-Client$",
+                                            "^com\\.realvnc\\.vncviewer$",
+                                            "^com\\.citrix\\.receiver\\.icaviewer",
+                                            "^com\\.apple\\.Terminal$",
+                                            "^com\\.googlecode\\.iterm2$",
+                                            "^co\\.zeit\\.hyperterm$",
+                                            "^co\\.zeit\\.hyper$",
+                                            "^io\\.alacritty$",
+                                            "^org\\.alacritty$",
+                                            "^net\\.kovidgoyal\\.kitty$",
+                                            "^com\\.mitchellh\\.ghostty$",
                                             "^org\\.vim\\.",
                                             "^com\\.qvacua\\.VimR$",
                                             "^com\\.vmware\\.fusion$",
@@ -4385,6 +4908,7 @@
                                             "^io\\.alacritty$",
                                             "^org\\.alacritty$",
                                             "^net\\.kovidgoyal\\.kitty$",
+                                            "^com\\.mitchellh\\.ghostty$",
                                             "^org\\.vim\\.",
                                             "^com\\.qvacua\\.VimR$",
                                             "^com\\.vmware\\.fusion$",
@@ -4453,6 +4977,7 @@
                                             "^io\\.alacritty$",
                                             "^org\\.alacritty$",
                                             "^net\\.kovidgoyal\\.kitty$",
+                                            "^com\\.mitchellh\\.ghostty$",
                                             "^org\\.vim\\.",
                                             "^com\\.qvacua\\.VimR$",
                                             "^com\\.vmware\\.fusion$",
@@ -4521,6 +5046,7 @@
                                             "^io\\.alacritty$",
                                             "^org\\.alacritty$",
                                             "^net\\.kovidgoyal\\.kitty$",
+                                            "^com\\.mitchellh\\.ghostty$",
                                             "^org\\.vim\\.",
                                             "^com\\.qvacua\\.VimR$",
                                             "^com\\.vmware\\.fusion$",
@@ -4584,6 +5110,7 @@
                                             "^io\\.alacritty$",
                                             "^org\\.alacritty$",
                                             "^net\\.kovidgoyal\\.kitty$",
+                                            "^com\\.mitchellh\\.ghostty$",
                                             "^org\\.vim\\.",
                                             "^com\\.qvacua\\.VimR$",
                                             "^com\\.vmware\\.fusion$",
@@ -4658,6 +5185,7 @@
                                             "^io\\.alacritty$",
                                             "^org\\.alacritty$",
                                             "^net\\.kovidgoyal\\.kitty$",
+                                            "^com\\.mitchellh\\.ghostty$",
                                             "^org\\.vim\\.",
                                             "^com\\.qvacua\\.VimR$",
                                             "^com\\.vmware\\.fusion$",
@@ -4718,6 +5246,7 @@
                                             "^io\\.alacritty$",
                                             "^org\\.alacritty$",
                                             "^net\\.kovidgoyal\\.kitty$",
+                                            "^com\\.mitchellh\\.ghostty$",
                                             "^org\\.vim\\.",
                                             "^com\\.qvacua\\.VimR$",
                                             "^com\\.vmware\\.fusion$",
@@ -4778,6 +5307,7 @@
                                             "^io\\.alacritty$",
                                             "^org\\.alacritty$",
                                             "^net\\.kovidgoyal\\.kitty$",
+                                            "^com\\.mitchellh\\.ghostty$",
                                             "^org\\.vim\\.",
                                             "^com\\.qvacua\\.VimR$",
                                             "^com\\.vmware\\.fusion$",
@@ -4816,14 +5346,122 @@
                                     }
                                 ],
                                 "type": "basic"
+                            },
+                            {
+                                "conditions": [
+                                    {
+                                        "bundle_identifiers": [
+                                            "^org\\.gnu\\.Emacs$",
+                                            "^org\\.gnu\\.AquamacsEmacs$",
+                                            "^org\\.gnu\\.Aquamacs$",
+                                            "^org\\.pqrs\\.unknownapp\\.conkeror$",
+                                            "^com\\.microsoft\\.rdc$",
+                                            "^com\\.microsoft\\.rdc\\.",
+                                            "^net\\.sf\\.cord$",
+                                            "^com\\.thinomenon\\.RemoteDesktopConnection$",
+                                            "^com\\.itap-mobile\\.qmote$",
+                                            "^com\\.nulana\\.remotixmac$",
+                                            "^com\\.p5sys\\.jump\\.mac\\.viewer$",
+                                            "^com\\.p5sys\\.jump\\.mac\\.viewer\\.",
+                                            "^com\\.teamviewer\\.TeamViewer$",
+                                            "^com\\.vmware\\.horizon$",
+                                            "^com\\.2X\\.Client\\.Mac$",
+                                            "^com\\.OpenText\\.Exceed-TurboX-Client$",
+                                            "^com\\.realvnc\\.vncviewer$",
+                                            "^com\\.citrix\\.receiver\\.icaviewer",
+                                            "^com\\.apple\\.Terminal$",
+                                            "^com\\.googlecode\\.iterm2$",
+                                            "^co\\.zeit\\.hyperterm$",
+                                            "^co\\.zeit\\.hyper$",
+                                            "^io\\.alacritty$",
+                                            "^org\\.alacritty$",
+                                            "^net\\.kovidgoyal\\.kitty$",
+                                            "^com\\.mitchellh\\.ghostty$",
+                                            "^org\\.vim\\.",
+                                            "^com\\.qvacua\\.VimR$",
+                                            "^com\\.vmware\\.fusion$",
+                                            "^com\\.vmware\\.horizon$",
+                                            "^com\\.vmware\\.view$",
+                                            "^com\\.parallels\\.desktop$",
+                                            "^com\\.parallels\\.vm$",
+                                            "^com\\.parallels\\.desktop\\.console$",
+                                            "^org\\.virtualbox\\.app\\.VirtualBoxVM$",
+                                            "^com\\.citrix\\.XenAppViewer$",
+                                            "^com\\.vmware\\.proxyApp\\.",
+                                            "^com\\.parallels\\.winapp\\.",
+                                            "^com\\.utmapp\\.UTM$",
+                                            "^org\\.x\\.X11$",
+                                            "^com\\.apple\\.x11$",
+                                            "^org\\.macosforge\\.xquartz\\.X11$",
+                                            "^org\\.macports\\.X11$",
+                                            "^com\\.sublimetext\\.",
+                                            "^com\\.microsoft\\.VSCode$",
+                                            "^com\\.jetbrains\\."
+                                        ],
+                                        "type": "frontmost_application_unless"
+                                    }
+                                ],
+                                "from": {
+                                    "key_code": "delete_or_backspace",
+                                    "modifiers": {
+                                        "mandatory": ["option"],
+                                        "optional": ["any"]
+                                    }
+                                },
+                                "to": [
+                                    {
+                                        "key_code": "z",
+                                        "modifiers": ["command"]
+                                    }
+                                ],
+                                "type": "basic"
                             }
                         ]
                     }
                 ]
             },
+            "devices": [
+                {
+                    "identifiers": {
+                        "is_keyboard": true,
+                        "product_id": 64035,
+                        "vendor_id": 9639
+                    },
+                    "ignore": true,
+                    "ignore_vendor_events": true,
+                    "manipulate_caps_lock_led": false
+                },
+                {
+                    "identifiers": {
+                        "is_keyboard": true,
+                        "product_id": 42,
+                        "vendor_id": 9610
+                    },
+                    "ignore_vendor_events": true,
+                    "manipulate_caps_lock_led": false
+                }
+            ],
+            "fn_function_keys": [
+                {
+                    "from": { "key_code": "f3" },
+                    "to": [{ "consumer_key_code": "volume_decrement" }]
+                },
+                {
+                    "from": { "key_code": "f4" },
+                    "to": [{ "consumer_key_code": "volume_increment" }]
+                },
+                {
+                    "from": { "key_code": "f9" },
+                    "to": [{ "consumer_key_code": "al_terminal_lock_or_screensaver" }]
+                }
+            ],
             "name": "Default profile",
             "selected": true,
             "simple_modifications": [
+                {
+                    "from": { "key_code": "application" },
+                    "to": [{ "key_code": "vk_none" }]
+                },
                 {
                     "from": { "key_code": "left_command" },
                     "to": [{ "key_code": "left_option" }]
@@ -4831,10 +5469,6 @@
                 {
                     "from": { "key_code": "left_option" },
                     "to": [{ "key_code": "left_command" }]
-                },
-                {
-                    "from": { "key_code": "right_control" },
-                    "to": [{ "key_code": "right_command" }]
                 }
             ],
             "virtual_hid_keyboard": {
