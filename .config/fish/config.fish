@@ -61,21 +61,30 @@ bind alt-F forward-to-space  # Alt+f
 #
 #
 ############################## 改变shell需更改 ##############################
-function ee
-    # 检查 emacs daemon 是否在运行
-    if not pgrep -f "emacs --daemon" > /dev/null
-        # 如果未运行，启动 emacs daemon
-        emacs --daemon
-    end
+# function e
+#     # 检查 emacs daemon 是否在运行
 
-    # 使用 emacsclient 打开文件
-    emacsclient -nw $argv
-end
+#     if not pgrep -f "emacs" > /dev/null
+#         # 如果未运行，启动 emacs daemon
+#         emacs --daemon
+#     end
+
+#     # 使用 emacsclient 打开文件
+#     emacsclient -nw $argv
+# end
+alias e="TERM=xterm-emacs emacsclient -nw"
 alias .="source ~/.config/fish/config.fish"
+
+# alias e='TERM=xterm-emacs emacsclient -nw -c -a ""'
+export EDITOR='e'
 
 ############################## 键绑定 ##############################
     bind \e\x7f 'commandline -f backward-kill-word'
     bind \cw 'commandline -f backward-kill-bigword'
+    # Ctrl+p - 智能历史搜索
+    bind \cp 'history-prefix-search-backward'
+    # Ctrl+n - 智能历史搜索
+    bind \cn 'history-prefix-search-forward'
 
 #
 #
@@ -85,6 +94,10 @@ alias .="source ~/.config/fish/config.fish"
 if test (uname) = "Darwin"
   # Mac 配置
   set -gx PATH "/usr/local/opt/coreutils/libexec/gnubin" $PATH
+  set -gx HOMEBREW_NO_AUTO_UPDATE 1
+  set -gx LDFLAGS "-L/usr/local/opt/qt@5/lib"
+  set -gx CPPFLAGS "-I/usr/local/opt/qt@5/include"
+  set -gx PKG_CONFIG_PATH "/usr/local/opt/qt@5/lib/pkgconfig"
   alias lsblk="diskutil list"
   alias a="ls -hA"
   alias l="ls"
@@ -162,13 +175,42 @@ alias gp="gam;git push"
 # alias v2="env all_proxy='socks://127.0.0.1:20170' https_proxy='http://127.0.0.1:20170' http_proxy='http://127.0.0.1:20170'"
 # alias cl="env all_proxy='socks://127.0.0.1:7890' https_proxy='http://127.0.0.1:7890' http_proxy='http://127.0.0.1:7890'"
 #export http_proxy="http://127.0.0.1:20122"; export https_proxy="http://127.0.0.1:20122"
-alias sb='export http_proxy="http://127.0.0.1:20122"; export https_proxy="http://127.0.0.1:20122"'
-alias ge='export http_proxy="http://127.0.0.1:9910"; export https_proxy="http://127.0.0.1:9910"'
-alias ge5='export http_proxy="http://127.0.0.1:19999"; export https_proxy="http://127.0.0.1:19999"'
-alias hi='export http_proxy="http://127.0.0.1:12334"; export https_proxy="http://127.0.0.1:12334"'
-alias ka='export http_proxy="http://127.0.0.1:3067"; export https_proxy="http://127.0.0.1:3067"'
-alias va='export http_proxy="http://127.0.0.1:20171"; export https_proxy="http://127.0.0.1:20171"'
-
+# alias sb='export http_proxy="http://127.0.0.1:20122"; export https_proxy="http://127.0.0.1:20122"'
+# alias ge='export http_proxy="http://127.0.0.1:9910"; export https_proxy="http://127.0.0.1:9910"'
+# alias ge5='export http_proxy="http://127.0.0.1:19999"; export https_proxy="http://127.0.0.1:19999"'
+# alias hi='export http_proxy="http://127.0.0.1:12334"; export https_proxy="http://127.0.0.1:12334"'
+# alias ka='export http_proxy="http://127.0.0.1:3067"; export https_proxy="http://127.0.0.1:3067"'
+# alias va='export http_proxy="http://127.0.0.1:20171"; export https_proxy="http://127.0.0.1:20171"'
+function xy --description "动态设置 HTTP/HTTPS 代理端口"
+    if test (count $argv) -eq 0
+        echo "使用方法: set_proxy <端口号>"
+        echo "当前代理设置:"
+        echo "http_proxy: $http_proxy"
+        echo "https_proxy: $https_proxy"
+        return 1
+    end
+    
+    set -l port $argv[1]
+    
+    # 验证端口号是否合法
+    if not string match -qr '^[0-9]+$' -- $port
+        echo "错误: 端口号必须是数字" >&2
+        return 1
+    end
+    
+    if test $port -lt 1 -o $port -gt 65535
+        echo "错误: 端口号必须在 1-65535 范围内" >&2
+        return 1
+    end
+    
+    # 设置代理
+    set -gx http_proxy "http://127.0.0.1:$port"
+    set -gx https_proxy "http://127.0.0.1:$port"
+    
+    echo "代理已设置为:"
+    echo "http_proxy: $http_proxy"
+    echo "https_proxy: $https_proxy"
+end
 ## 字体
 alias font="fc-list :lang=zh"
 alias fcc="sudo fc-cache -f -v"
@@ -189,11 +231,8 @@ alias ..='cd ..'
 alias ...='cd ../..'
 
 ## 编辑器
-alias e='TERM=xterm-emacs emacsclient -nw -c -a ""'
-export EDITOR='TERM=xterm-emacs emacsclient -nw -c -a ""'
-# export EDITOR='TERM=xterm-emacs emacsclient -nw -c -a ""'
 alias zs="$EDITOR ~/myconfig/zshrc"
-alias fs="$EDITOR ~/.config/fish/config.fish"
+alias fc="$EDITOR ~/.config/fish/config.fish"
 alias doc="cd ~/myconfig/doc"
 alias dot="cd ~/dotfiles/"
 alias docc="$EDITOR ~/myconfig/doc/c.sh"
@@ -366,8 +405,8 @@ function help
 end
 
 # 绑定 Alt+C 复制当前命令行内容
-function copy-current-line
-    commandline | pbcopy
+function copzy-current-line
+commandline | pbcopy
 end
 bind alt-c copy-current-line
 
