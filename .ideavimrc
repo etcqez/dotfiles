@@ -1,3 +1,4 @@
+source ~/helix.vim/helix.idea.vim
 set clipboard=unnamed
 set scrolloff=3
 set incsearch
@@ -30,10 +31,10 @@ set clipboard=unnamedplus
 map s <Plug>(easymotion-s)
 inoremap <C-f> <Right>
 inoremap <C-b> <Left>
-inoremap <M-f> <M-Right>
-inoremap <M-b> <M-Left>
-inoremap <C-p> <Up>
-map <C-\> <Action>(ParameterInfo)
+    inoremap <M-f> <M-Right>
+    inoremap <M-b> <M-Left>
+    inoremap <C-p> <Up>
+    map <C-\> <Action>(ParameterInfo)
 inoremap <C-n> <Down>
 inoremap <C-a> <Esc>I
 inoremap <C-e> <End>

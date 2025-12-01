@@ -74,17 +74,52 @@ bind alt-F forward-to-space  # Alt+f
 # end
 alias e="TERM=xterm-emacs emacsclient -nw"
 alias .="source ~/.config/fish/config.fish"
-
+function e
+    if set -q argv[1]
+        set file_path $argv[1]
+        
+        # 检查缓存（使用文件路径的MD5作为缓存键）
+        set cache_file "/tmp/emacs_permission_cache_"(echo -n "$file_path" | md5)
+        
+        if test -e "$cache_file"
+            set needs_sudo (cat "$cache_file")
+        else
+            set needs_sudo "false"
+            if test -e "$file_path"
+                if not test -w "$file_path"
+                    set needs_sudo "true"
+                end
+            else
+                set parent_dir (dirname "$file_path")
+                if not test -w "$parent_dir"
+                    set needs_sudo "true"
+                end
+            end
+            echo $needs_sudo > "$cache_file"
+        end
+        
+        if test "$needs_sudo" = "true"
+            echo "File requires admin rights, using TRAMP..."
+            TERM=xterm-emacs emacsclient -nw "/sudo::$file_path"
+        else
+            TERM=xterm-emacs emacsclient -nw "$file_path"
+        end
+    else
+        TERM=xterm-emacs emacsclient -nw
+    end
+end
 # alias e='TERM=xterm-emacs emacsclient -nw -c -a ""'
-export EDITOR='e'
+export EDITOR="TERM=xterm-emacs emacsclient -nw"
+#export EDITOR="e"
+
 
 ############################## 键绑定 ##############################
     bind \e\x7f 'commandline -f backward-kill-word'
     bind \cw 'commandline -f backward-kill-bigword'
-    # Ctrl+p - 智能历史搜索
-    bind \cp 'history-prefix-search-backward'
-    # Ctrl+n - 智能历史搜索
-    bind \cn 'history-prefix-search-forward'
+    # # Ctrl+p - 智能历史搜索
+    # bind \cp 'history-prefix-search-backward'
+    # # Ctrl+n - 智能历史搜索
+    # bind \cn 'history-prefix-search-forward'
 
 #
 #
@@ -98,6 +133,9 @@ if test (uname) = "Darwin"
   set -gx LDFLAGS "-L/usr/local/opt/qt@5/lib"
   set -gx CPPFLAGS "-I/usr/local/opt/qt@5/include"
   set -gx PKG_CONFIG_PATH "/usr/local/opt/qt@5/lib/pkgconfig"
+  # eval $(minikube docker-env)
+
+  # alias mkd="eval $(minikube docker-env)"
   alias lsblk="diskutil list"
   alias a="ls -hA"
   alias l="ls"
@@ -189,24 +227,24 @@ function xy --description "动态设置 HTTP/HTTPS 代理端口"
         echo "https_proxy: $https_proxy"
         return 1
     end
-    
+
     set -l port $argv[1]
-    
+
     # 验证端口号是否合法
     if not string match -qr '^[0-9]+$' -- $port
         echo "错误: 端口号必须是数字" >&2
         return 1
     end
-    
+
     if test $port -lt 1 -o $port -gt 65535
         echo "错误: 端口号必须在 1-65535 范围内" >&2
         return 1
     end
-    
+
     # 设置代理
     set -gx http_proxy "http://127.0.0.1:$port"
     set -gx https_proxy "http://127.0.0.1:$port"
-    
+
     echo "代理已设置为:"
     echo "http_proxy: $http_proxy"
     echo "https_proxy: $https_proxy"

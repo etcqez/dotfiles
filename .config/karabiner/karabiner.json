@@ -11,6 +11,41 @@
             "complex_modifications": {
                 "rules": [
                     {
+                        "description": "Enter",
+                        "manipulators": [
+                            {
+                                "from": { "key_code": "return_or_enter" },
+                                "parameters": { "basic.to_if_alone_timeout_milliseconds": 200 },
+                                "to": [
+                                    {
+                                        "key_code": "left_shift",
+                                        "lazy": true,
+                                        "modifiers": ["left_command", "left_control", "left_option"]
+                                    }
+                                ],
+                                "to_if_alone": [
+                                    {
+                                        "key_code": "return_or_enter",
+                                        "lazy": true
+                                    }
+                                ],
+                                "type": "basic"
+                            }
+                        ]
+                    },
+                    {
+                        "description": "backslash",
+                        "manipulators": [
+                            {
+                                "from": { "key_code": "backslash" },
+                                "parameters": { "basic.to_if_alone_timeout_milliseconds": 300 },
+                                "to": [{ "key_code": "right_command" }],
+                                "to_if_alone": [{ "key_code": "backslash" }],
+                                "type": "basic"
+                            }
+                        ]
+                    },
+                    {
                         "description": "Hyper",
                         "manipulators": [
                             {
@@ -90,13 +125,48 @@
                         ]
                     },
                     {
+                        "description": "F1功能键",
+                        "manipulators": [
+                            {
+                                "from": {
+                                    "key_code": "f1",
+                                    "modifiers": { "mandatory": ["control", "option", "shift", "command"] }
+                                },
+                                "to": [{ "shell_command": "open -a open -a 'Activity Monitor'" }],
+                                "type": "basic"
+                            },
+                            {
+                                "from": { "key_code": "f1" },
+                                "to": [{ "consumer_key_code": "display_brightness_decrement" }],
+                                "type": "basic"
+                            },
+                            {
+                                "from": { "key_code": "f2" },
+                                "to": [{ "consumer_key_code": "display_brightness_increment" }],
+                                "type": "basic"
+                            },
+                            {
+                                "from": { "key_code": "f3" },
+                                "to": [{ "consumer_key_code": "volume_decrement" }],
+                                "type": "basic"
+                            },
+                            {
+                                "from": { "key_code": "f4" },
+                                "to": [{ "consumer_key_code": "volume_increment" }],
+                                "type": "basic"
+                            }
+                        ]
+                    },
+                    {
                         "description": "left_shift",
+                        "enabled": false,
                         "manipulators": [
                             {
                                 "from": {
                                     "key_code": "left_shift",
                                     "modifiers": { "optional": ["any"] }
                                 },
+                                "parameters": { "basic.to_if_alone_timeout_milliseconds": 200 },
                                 "to": [
                                     {
                                         "key_code": "left_shift",
@@ -109,14 +179,19 @@
                         ]
                     },
                     {
-                        "description": "Caps Lock to Esc and Ctrl",
+                        "description": "Caps Lock",
                         "manipulators": [
                             {
                                 "from": {
                                     "key_code": "caps_lock",
                                     "modifiers": { "optional": ["any"] }
                                 },
-                                "to": [{ "key_code": "left_control" }],
+                                "to": [
+                                    {
+                                        "key_code": "left_option",
+                                        "lazy": true
+                                    }
+                                ],
                                 "to_if_alone": [{ "key_code": "escape" }],
                                 "type": "basic"
                             }
@@ -166,21 +241,6 @@
                         ]
                     },
                     {
-                        "description": "backslash",
-                        "manipulators": [
-                            {
-                                "from": {
-                                    "key_code": "backslash",
-                                    "modifiers": { "optional": ["any"] }
-                                },
-                                "parameters": { "basic.to_if_alone_timeout_milliseconds": 200 },
-                                "to": [{ "key_code": "fn" }],
-                                "to_if_alone": [{ "key_code": "backslash" }],
-                                "type": "basic"
-                            }
-                        ]
-                    },
-                    {
                         "description": "left_control",
                         "enabled": false,
                         "manipulators": [
@@ -225,20 +285,28 @@
                         ]
                     },
                     {
+                        "description": "left_shift",
+                        "manipulators": [
+                            {
+                                "from": {
+                                    "key_code": "left_shift",
+                                    "modifiers": { "optional": ["caps_lock"] }
+                                },
+                                "to": [{ "key_code": "left_shift" }],
+                                "to_if_alone": [{ "key_code": "caps_lock" }],
+                                "type": "basic"
+                            }
+                        ]
+                    },
+                    {
                         "description": "right_shift",
                         "manipulators": [
                             {
                                 "from": {
                                     "key_code": "right_shift",
-                                    "modifiers": { "optional": ["any"] }
+                                    "modifiers": { "optional": ["caps_lock"] }
                                 },
-                                "parameters": { "basic.to_if_alone_timeout_milliseconds": 200 },
-                                "to": [
-                                    {
-                                        "key_code": "right_shift",
-                                        "modifiers": []
-                                    }
-                                ],
+                                "to": [{ "key_code": "right_shift" }],
                                 "to_if_alone": [{ "key_code": "caps_lock" }],
                                 "type": "basic"
                             }
@@ -5474,6 +5542,22 @@
                                     "modifiers": { "optional": ["any"] }
                                 },
                                 "parameters": { "basic.to_if_alone_timeout_milliseconds": 200 },
+                                "to": [{ "key_code": "fn" }],
+                                "to_if_alone": [{ "key_code": "backslash" }],
+                                "type": "basic"
+                            }
+                        ]
+                    },
+                    {
+                        "description": "backslash",
+                        "enabled": false,
+                        "manipulators": [
+                            {
+                                "from": {
+                                    "key_code": "backslash",
+                                    "modifiers": { "optional": ["any"] }
+                                },
+                                "parameters": { "basic.to_if_alone_timeout_milliseconds": 200 },
                                 "to": [
                                     {
                                         "key_code": "left_shift",
@@ -5610,32 +5694,6 @@
                         ]
                     },
                     {
-                        "description": "F2/F3 控制音量和亮度",
-                        "enabled": false,
-                        "manipulators": [
-                            {
-                                "from": { "key_code": "f1" },
-                                "to": [{ "consumer_key_code": "display_brightness_decrement" }],
-                                "type": "basic"
-                            },
-                            {
-                                "from": { "key_code": "f2" },
-                                "to": [{ "consumer_key_code": "display_brightness_increment" }],
-                                "type": "basic"
-                            },
-                            {
-                                "from": { "key_code": "f3" },
-                                "to": [{ "consumer_key_code": "volume_decrement" }],
-                                "type": "basic"
-                            },
-                            {
-                                "from": { "key_code": "f4" },
-                                "to": [{ "consumer_key_code": "volume_increment" }],
-                                "type": "basic"
-                            }
-                        ]
-                    },
-                    {
                         "description": "return_or_enter",
                         "enabled": false,
                         "manipulators": [
@@ -5680,29 +5738,43 @@
                         "vendor_id": 2522
                     },
                     "ignore_vendor_events": true,
-                    "manipulate_caps_lock_led": false
+                    "manipulate_caps_lock_led": false,
+                    "simple_modifications": [
+                        {
+                            "from": { "key_code": "down_arrow" },
+                            "to": [{ "key_code": "right_control" }]
+                        },
+                        {
+                            "from": { "key_code": "up_arrow" },
+                            "to": [{ "key_code": "right_shift" }]
+                        }
+                    ]
                 }
             ],
             "fn_function_keys": [
                 {
+                    "from": { "key_code": "f1" },
+                    "to": [{ "key_code": "f1" }]
+                },
+                {
+                    "from": { "key_code": "f2" },
+                    "to": [{ "key_code": "f2" }]
+                },
+                {
                     "from": { "key_code": "f3" },
-                    "to": [{ "consumer_key_code": "volume_decrement" }]
+                    "to": [{ "key_code": "f3" }]
                 },
                 {
                     "from": { "key_code": "f4" },
-                    "to": [{ "consumer_key_code": "volume_increment" }]
+                    "to": [{ "key_code": "f4" }]
                 },
                 {
                     "from": { "key_code": "f5" },
-                    "to": [{ "consumer_key_code": "play_or_pause" }]
-                },
-                {
-                    "from": { "key_code": "f6" },
-                    "to": [{ "consumer_key_code": "rewind" }]
+                    "to": [{ "key_code": "f5" }]
                 },
                 {
                     "from": { "key_code": "f7" },
-                    "to": [{ "consumer_key_code": "fast_forward" }]
+                    "to": [{ "key_code": "f7" }]
                 },
                 {
                     "from": { "key_code": "f8" },

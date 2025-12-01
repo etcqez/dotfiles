@@ -1,5 +1,7 @@
 # This file contains fish universal variable definitions.
 # VERSION: 3.0
+SETUVAR --export EDITOR:emacsclient\x20\x2dnw
+SETUVAR MINIKUBE_DOCKER_ENV:set\x20\x2dgx\x20DOCKER_TLS_VERIFY\x20\x221\x22\x3b\x1eset\x20\x2dgx\x20DOCKER_HOST\x20\x22tcp\x3a//192\x2e168\x2e59\x2e100\x3a2376\x22\x3b\x1eset\x20\x2dgx\x20DOCKER_CERT_PATH\x20\x22/Users/f/\x2eminikube/certs\x22\x3b\x1eset\x20\x2dgx\x20MINIKUBE_ACTIVE_DOCKERD\x20\x22minikube\x22\x3b\x1e\x1e\x23\x20To\x20point\x20your\x20shell\x20to\x20minikube\x27s\x20docker\x2ddaemon\x2c\x20run\x3a\x1e\x23\x20minikube\x20\x2dp\x20minikube\x20docker\x2denv\x20\x7c\x20source
 SETUVAR __fish_initialized:3800
 SETUVAR fish_color_autosuggestion:4c566a
 SETUVAR fish_color_cancel:\x2d\x2dreverse
