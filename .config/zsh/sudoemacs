@@ -1,0 +1,41 @@
+function e() {
+    # 1. 如果没有参数，直接打开 Emacs 客户端
+    if [ $# -eq 0 ]; then
+        TERM=xterm-emacs emacsclient -nw
+        return
+    fi
+
+    # 2. 获取文件的绝对路径
+    # TRAMP 必须使用绝对路径才能正常工作
+    # 如果系统没有 realpath，可以用: $(readlink -f "$1")
+    local fullpath=$(realpath "$1")
+    
+    # 3. 定义打开逻辑
+    # 变量 use_sudo 默认为 false
+    local use_sudo=0
+
+    if [ -e "$fullpath" ]; then
+        #情况A：文件存在
+        if [ ! -w "$fullpath" ]; then
+            # 如果文件存在但不可写，则需要 sudo
+            use_sudo=1
+        fi
+    else
+        #情况B：文件不存在（这是要新建文件）
+        local dirpath=$(dirname "$fullpath")
+        if [ ! -w "$dirpath" ]; then
+            # 如果所在目录不可写（例如在 /etc/ 下新建），则需要 sudo
+            use_sudo=1
+        fi
+    fi
+
+    # 4. 执行打开命令
+    if [ $use_sudo -eq 1 ]; then
+        echo "🔒 需要 Root 权限，正在通过 TRAMP 打开..."
+        # 使用 /sudo:root@localhost: 是最稳妥的标准写法
+        TERM=xterm-emacs emacsclient -nw "/sudo:root@localhost:$fullpath"
+    else
+        # 普通权限打开
+        TERM=xterm-emacs emacsclient -nw  "$fullpath"
+    fi
+}

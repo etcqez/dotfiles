@@ -1,0 +1,64 @@
+function rm() {
+    local force_delete=0
+    local files=()
+    local args=()
+
+    # 1. 参数解析
+    for arg in "$@"; do
+        case "$arg" in
+            -*f*|--force)
+                force_delete=1
+                args+=("$arg")
+                ;;
+            -*)
+                # 其他参数（如 -r, -v）原样保留，传递给系统 rm
+                args+=("$arg")
+                ;;
+            *)
+                # 记录文件名，用于后续打印
+                files+=("$arg")
+                args+=("$arg")
+                ;;
+        esac
+    done
+
+    # 2. 逻辑分支
+    if [ $force_delete -eq 1 ]; then
+        # 【分支 A：强制删除】
+        
+        # 调用系统原生 rm
+        command rm "${args[@]}"
+        local ret=$?
+
+        # 只有当 rm 执行成功 (返回 0) 时才打印提示
+        # 注意：rm -rf 删除不存在的文件也会返回 0 (这是 -f 的特性)，所以这里也会提示，符合逻辑
+        if [ $ret -eq 0 ]; then
+             # 使用 ${files[*]} 只打印文件名，不打印 -rf 等参数
+            echo "🔥 已永久删除: ${files[*]}"
+        fi
+        
+        return $ret
+    else
+        # 【分支 B：安全移动】
+        
+        # 边界检查
+        if [ ${#files[@]} -eq 0 ]; then
+            echo "rm (safe mode): 缺少要处理的文件"
+            return 1
+        fi
+
+        # 创建临时目录
+        local trash_dir
+        trash_dir=$(mktemp -d /tmp/trash-$(date +%F_%H-%M-%S)_XXXXXX)
+        
+        # 执行移动
+        # 这里只移动 files 数组里的内容（文件名），忽略 -r 等参数
+        if mv -t "$trash_dir" "${files[@]}"; then
+            echo "♻️  已安全移动到: $trash_dir"
+            echo "   (使用 'rm -rf ...' 可永久删除)"
+        else
+            echo "❌ 移动失败"
+            return 1
+        fi
+    fi
+}
